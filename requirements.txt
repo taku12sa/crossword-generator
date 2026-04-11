@@ -1,0 +1,6 @@
+pypdf
+random
+csv
+numpy
+typing
+reportlab
