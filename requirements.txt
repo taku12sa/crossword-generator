@@ -1,5 +1,4 @@
 pypdf
-random
 csv
 numpy
 typing
