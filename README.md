@@ -34,7 +34,7 @@ word,definition
 
 Example:
 
-dot, An extension is the part of a filename after this.
+dot, An extension is the part of a filename after this.<br>
 pptx, The file extension for a MS PowerPoint file.
 
 ## Notes
@@ -44,5 +44,5 @@ pptx, The file extension for a MS PowerPoint file.
 
 ## Run locally
 
-pip install -r requirements.txt
+pip install -r requirements.txt<br>
 streamlit run app.py
