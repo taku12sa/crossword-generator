@@ -1,0 +1,49 @@
+device,"A piece of electrinic device such as a keyboard, speaker, or smartphone."
+presentation,MS PowerPoint is used to create this.
+spreadsheet,MS Excel is used to create this.
+database,MS Access is used to create this.
+input,"Keyboard and mouse are examples of this type of device, but printer and monitor are not."
+output,"Printer and monitor are examples of this type of device, but keyboard and mouse are not."
+storage,"HDDs and flash drives are examples of this, but RAM and ROM are not."
+drive,HDD stands for Hard Disk D____.
+solid,"Today, SSDs (S____ State Drives) are taking over HDDs. Unlike HDDs, SSDs do not have a spinning disk and are faster."
+portable,A flash drive is useful because it is _______.
+read,ROM stands for R___ Only Memory.
+random,RAM stands for R____ Access Memory.
+volatile,"RAM is better than ROM because it is rewritable, but worse because it is v______ and losses data without power."
+primary,Memory directly connected to the CPU is called what?
+secondary,Storage is also known as _________ memory.
+speed,"Storage is better than memory in capacity, but worse in the s____."
+processing,CPU stands for Central P_________ Unit.
+brain,The CPU is described as the _____ of a computer.
+interface,UI stands for User I______.
+graphical,"The ""G"" in GUI stands for G_______. A GUI makes computers easier to use."
+mouse,"GUI took over CUI (Character User Interface). CUI accepted input from a keyboard, but not from a _____."
+keyboard,This is also known as QWERTY.
+icons,"Bold, Save and Print buttons in MS Word are examples of these in a GUI."
+menus,"File, Home, and Insert at the top of the GUI in MS Word are examples of these."
+windows,"When two documents are open in the GUI of MS Word, they appear in separate _______."
+pointer,The arrow you move in a GUI with a mouse.
+toolbar,"A row of icons in the GUI of MS Word, such as Bold and Italic."
+file,A document or piece of data stored on a computer.
+folder,A container used to organize files.
+typing,______ keys in a keyboard are used to type letters and numbers such as A-Z and 0-9
+function,________ keys in a keyboard are labeled F1 to F12 and perform special commands.
+control,"_______ keys in a keyboard include Ctrl, Alt, and Shift and are used with other keys."
+document,"________ keys in a keyboard include Home, End, Insert, and Delete and are used when editing text."
+numeric,The number pad on the right side of a keyboard is called the _______ keypad.
+txt,The file extension for a plain text file.
+docx,The file extension for a MS Word file.
+xlsx,The file extension for a MS Excel file.
+pptx,The file extension for a MS PowerPoint file.
+pdf,A file format used for documents that keep the same layout when shared.
+jpg,A common file extension for digital photos.
+png,An image file format that supports transparent backgrounds.
+dot,An extension is the part of a filename after this.
+root,"The higest directory in a file system, above all other folders."
+main,"The top folder of a project, often located directly under the root directory."
+floppy,"A: and B: were used for ______ disks, so the Windows root directory is often C:."
+backslash,Unix uses slash (/) to separate folders in a path. Windows uses what?
+column,The vertical arrangement of cells in a spreadsheet.
+row,The horizontal arrangement of cells in a spreadsheet.
+cell,The smallest unit of a spreadsheet where numbers or text are stored
