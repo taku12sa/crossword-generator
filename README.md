@@ -41,3 +41,15 @@ pptx, The file extension for a MS PowerPoint file.
 
 * Large values of "Number of variants" may take longer to generate
 * If generation is slow, reduce the number of variants
+
+## Run locally (optional)
+
+Only needed if you want to run the app on your own machine.
+You can ignore this section if you are using the online version.
+
+```bash
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+The application entry point is `app.py`, which loads the CSV input, generates crossword variants, and writes the result as a PDF.
