@@ -1,6 +1,6 @@
 # Crossword Generator
 
-A tool for teachers to generate printable crossword worksheet PDFs from a CSV file.
+A tool for teachers to generate printable crossword worksheet PDFs from a CSV file of words and definitions.
 
 ## Why this tool?
 
