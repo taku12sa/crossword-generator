@@ -41,8 +41,3 @@ pptx, The file extension for a MS PowerPoint file.
 
 * Large values of "Number of variants" may take longer to generate
 * If generation is slow, reduce the number of variants
-
-## Run locally
-
-pip install -r requirements.txt<br>
-streamlit run app.py
