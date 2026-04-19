@@ -12,7 +12,7 @@ This tool generates multiple variants from a single word list, allowing teachers
 
 ![Example crossword](screenshot.png)
 
-## Try it
+## Try it for free
 
 Try it online at https://crossword-generator-n55sxjze3pohsrt5yy2olp.streamlit.app/
 
