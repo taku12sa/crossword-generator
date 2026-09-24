@@ -1,9 +1,7 @@
 import io
 import os
-import inspect
 import streamlit as st
 import main
-import renderer
 
 
 THEME_COLORS = {
@@ -52,11 +50,6 @@ if uploaded_file and st.button("Generate"):
         st.stop()
 
     buffer = io.BytesIO()
-    print(
-        f"Build={renderer.INSTRUCTION_LAYOUT_VERSION} "
-        f"file={uploaded_file.name} bytes={uploaded_file.size} "
-        f"instruction_length={len(pdf_instruction)}"
-    )
     main.pdf_writer(
         pdf_title = pdf_title,
         pdf_instruction = pdf_instruction,
@@ -74,13 +67,3 @@ if buffer:
         file_name = "crossword.pdf",
         mime = "application/pdf",
     )
-
-with st.expander("Debug info"):
-    st.write("App file", __file__)
-    st.write("Main file", main.__file__)
-    st.write("Renderer file", renderer.__file__)
-    st.write("Instruction layout", renderer.INSTRUCTION_LAYOUT_VERSION)
-    st.write("pdf_writer signature", str(inspect.signature(main.pdf_writer)))
-    if uploaded_file:
-        st.write("Uploaded file", uploaded_file.name)
-        st.write("Uploaded bytes", uploaded_file.size)

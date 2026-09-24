@@ -57,7 +57,6 @@ META_LINE_Y_OFFSET = 1
 
 
 # ===== Instruction box =====
-INSTRUCTION_LAYOUT_VERSION = "paragraph-wrap-v5"
 INSTRUCTION_FONT = "Helvetica"
 INSTRUCTION_FONT_SIZE = 9
 INSTRUCTION_BOX_TOP = 39 * mm

@@ -1,6 +1,6 @@
 from picker import pick_puzzles
 from renderer import export_single_puzzle_pdf
-from renderer import DEFAULT_THEME_COLOR, INSTRUCTION_LAYOUT_VERSION
+from renderer import DEFAULT_THEME_COLOR
 from io import BytesIO
 from pypdf import PdfReader, PdfWriter
 
@@ -32,7 +32,7 @@ def pdf_writer(
 		export_single_puzzle_pdf(
 			puzzle = puzzle,
 			title = pdf_title,
-			subtitle = f"variant: {idx+1} | {INSTRUCTION_LAYOUT_VERSION}",
+			subtitle = f"variant: {idx+1}",
 			instruction = pdf_instruction,
 			output_path = buffer,
 			theme_color = theme_color,
