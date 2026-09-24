@@ -43,4 +43,4 @@ def pdf_writer(
 				height = reader.pages[0].mediabox.height,
 			)
 		print(f"[{idx}] {puzzle}\n{rendering_message}")
-	return write
+	return writer
