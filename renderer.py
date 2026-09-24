@@ -127,7 +127,7 @@ def _theme_colors(theme_color):
             COLOR_RULE,
             COLOR_INSTRUCTION_BG,
             COLOR_INSTRUCTION_BORDER,
-            colors.HexColor("#6f879c"),
+            colors.HexColor("#91a5b5"),
         )
 
     red, green, blue = (component / 255 for component in theme_color)
@@ -140,19 +140,12 @@ def _theme_colors(theme_color):
             blue + (1 - blue) * amount,
         )
 
-    def blend_with_black(amount):
-        return colors.Color(
-            red * (1 - amount),
-            green * (1 - amount),
-            blue * (1 - amount),
-        )
-
     return (
         section,
         blend_with_white(0.82),
         blend_with_white(0.94),
         blend_with_white(0.68),
-        blend_with_black(0.42),
+        blend_with_white(0.45),
     )
 
 
