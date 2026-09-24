@@ -110,6 +110,7 @@ PAGE_NUMBER_BOTTOM = 9 * mm
 
 
 # ===== Colors =====
+DEFAULT_THEME_COLOR = (31, 78, 121)
 COLOR_TEXT = colors.black
 COLOR_SUBTITLE = colors.HexColor("#444444")
 COLOR_SECTION = colors.HexColor("#1f4e79")
@@ -118,6 +119,33 @@ COLOR_INSTRUCTION_BG = colors.HexColor("#eef4fb")
 COLOR_INSTRUCTION_BORDER = colors.HexColor("#b7cde6")
 COLOR_BLACK_CELL = colors.gray
 COLOR_WHITE_CELL = colors.white
+
+
+def _theme_colors(theme_color):
+    if theme_color == DEFAULT_THEME_COLOR:
+        return (
+            COLOR_SECTION,
+            COLOR_RULE,
+            COLOR_INSTRUCTION_BG,
+            COLOR_INSTRUCTION_BORDER,
+        )
+
+    red, green, blue = (component / 255 for component in theme_color)
+    section = colors.Color(red, green, blue)
+
+    def blend_with_white(amount):
+        return colors.Color(
+            red + (1 - red) * amount,
+            green + (1 - green) * amount,
+            blue + (1 - blue) * amount,
+        )
+
+    return (
+        section,
+        blend_with_white(0.82),
+        blend_with_white(0.94),
+        blend_with_white(0.68),
+    )
 
 
 # ===== Meta line positions =====
@@ -139,7 +167,12 @@ def export_single_puzzle_pdf(
     subtitle: str,
     instruction: str,
     output_path: Union[str, IO[bytes]],
+    theme_color=DEFAULT_THEME_COLOR,
 ) -> None:
+
+    section_color, rule_color, instruction_bg, instruction_border = _theme_colors(
+        theme_color
+    )
 
     ppm = PPM(puzzle)
     grid_rows, grid_cols = puzzle.grid.shape
@@ -183,7 +216,7 @@ def export_single_puzzle_pdf(
             name="SectionHead",
             fontName=CLUE_SECTION_FONT,
             fontSize=CLUE_SECTION_FONT_SIZE,
-            textColor=COLOR_SECTION,
+            textColor=section_color,
             spaceBefore=CLUE_SECTION_SPACE_BEFORE,
             spaceAfter=CLUE_SECTION_SPACE_AFTER,
         )
@@ -292,8 +325,8 @@ def export_single_puzzle_pdf(
             y2=meta_y - META_LINE_Y_OFFSET,
         )
 
-        canv.setFillColor(COLOR_INSTRUCTION_BG)
-        canv.setStrokeColor(COLOR_INSTRUCTION_BORDER)
+        canv.setFillColor(instruction_bg)
+        canv.setStrokeColor(instruction_border)
 
         canv.roundRect(
             x=MARGIN_LEFT,
@@ -316,7 +349,7 @@ def export_single_puzzle_pdf(
 
         draw_grid(canv)
 
-        canv.setStrokeColor(COLOR_RULE)
+        canv.setStrokeColor(rule_color)
 
         canv.line(
             x1=MARGIN_LEFT,
@@ -326,7 +359,7 @@ def export_single_puzzle_pdf(
         )
 
         canv.setFont(psfontname=CLUES_HEADER_FONT, size=CLUES_HEADER_FONT_SIZE)
-        canv.setFillColor(COLOR_SECTION)
+        canv.setFillColor(section_color)
 
         canv.drawString(
             x=MARGIN_LEFT,
@@ -358,7 +391,7 @@ def export_single_puzzle_pdf(
             text=f"{title} - Continued Clues",
         )
 
-        canv.setStrokeColor(COLOR_RULE)
+        canv.setStrokeColor(rule_color)
 
         canv.line(
             x1=MARGIN_LEFT,

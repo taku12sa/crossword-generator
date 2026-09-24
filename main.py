@@ -1,5 +1,6 @@
 from picker import pick_puzzles
 from renderer import export_single_puzzle_pdf
+from renderer import DEFAULT_THEME_COLOR
 from io import BytesIO
 from pypdf import PdfReader, PdfWriter
 
@@ -11,6 +12,7 @@ def pdf_writer(
 		pdf_title, 
 		pdf_instruction, 
 		delimiter = ",",
+		theme_color = DEFAULT_THEME_COLOR,
 		rendering_message = "PDF rendering...", 
 		print_interval = 100, 
 		random_seed = 0
@@ -33,6 +35,7 @@ def pdf_writer(
 			subtitle = f"variant: {idx+1}",
 			instruction = pdf_instruction,
 			output_path = buffer,
+			theme_color = theme_color,
 		)
 		buffer.seek(0)
 		reader = PdfReader(stream=buffer)
@@ -43,4 +46,4 @@ def pdf_writer(
 				height = reader.pages[0].mediabox.height,
 			)
 		print(f"[{idx}] {puzzle}\n{rendering_message}")
-	return writer
+	return write
