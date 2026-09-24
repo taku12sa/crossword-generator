@@ -26,10 +26,6 @@ Try it online at https://crossword-generator-n55sxjze3pohsrt5yy2olp.streamlit.ap
 6. Click "Generate"
 7. Download the PDF
 
-## Theme color
-
-Choose a theme color from the preset color list before generating the worksheet. The `Selected theme color` picker is always visible, so you can click the swatch and adjust the color directly. The default theme preserves the original blue color scheme.
-
 ## TSV format
 
 Each row contains a word and its definition, separated by a tab. TSV is recommended because definitions can contain commas without additional quoting.
