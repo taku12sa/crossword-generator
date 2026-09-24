@@ -239,7 +239,9 @@ def export_single_puzzle_pdf(
                     name="Instruction",
                     fontName=INSTRUCTION_FONT,
                     fontSize=INSTRUCTION_FONT_SIZE,
-                    leading=10,
+                    leading=9,
+                    spaceBefore=0,
+                    spaceAfter=0,
                     textColor=COLOR_TEXT,
                 ),
             )
@@ -372,7 +374,7 @@ def export_single_puzzle_pdf(
         instruction_flowable.drawOn(
             canv,
             MARGIN_LEFT + INSTRUCTION_TEXT_X_OFFSET,
-            instruction_box_y + mm,
+            instruction_box_y + 0.5 * mm,
         )
 
         draw_grid(canv)
