@@ -8,7 +8,6 @@ from reportlab.lib.units import mm
 from reportlab.platypus import (
     BaseDocTemplate,
     Frame,
-    KeepInFrame,
     PageTemplate,
     Paragraph,
     Spacer,
@@ -58,7 +57,7 @@ META_LINE_Y_OFFSET = 1
 
 
 # ===== Instruction box =====
-INSTRUCTION_LAYOUT_VERSION = "paragraph-wrap-v4"
+INSTRUCTION_LAYOUT_VERSION = "paragraph-wrap-v5"
 INSTRUCTION_FONT = "Helvetica"
 INSTRUCTION_FONT_SIZE = 9
 INSTRUCTION_BOX_TOP = 39 * mm
@@ -229,26 +228,30 @@ def export_single_puzzle_pdf(
         )
     )
 
-    instruction_flowable = KeepInFrame(
-        maxWidth=PAGE_W - MARGIN_LEFT - MARGIN_RIGHT - 2 * INSTRUCTION_TEXT_X_OFFSET,
-        maxHeight=INSTRUCTION_BOX_HEIGHT - 2 * mm,
-        content=[
-            Paragraph(
-                html.escape(instruction),
-                ParagraphStyle(
-                    name="Instruction",
-                    fontName=INSTRUCTION_FONT,
-                    fontSize=INSTRUCTION_FONT_SIZE,
-                    leading=9,
-                    spaceBefore=0,
-                    spaceAfter=0,
-                    textColor=COLOR_TEXT,
-                ),
-            )
-        ],
-        mode="shrink",
-        vAlign="TOP",
-    )
+    instruction_width = PAGE_W - MARGIN_LEFT - MARGIN_RIGHT - 2 * INSTRUCTION_TEXT_X_OFFSET
+    instruction_height = INSTRUCTION_BOX_HEIGHT - 1 * mm
+    instruction_font_size = INSTRUCTION_FONT_SIZE
+    instruction_paragraph = None
+    while instruction_font_size >= 6:
+        instruction_paragraph = Paragraph(
+            html.escape(instruction),
+            ParagraphStyle(
+                name="Instruction",
+                fontName=INSTRUCTION_FONT,
+                fontSize=instruction_font_size,
+                leading=instruction_font_size,
+                spaceBefore=0,
+                spaceAfter=0,
+                textColor=COLOR_TEXT,
+            ),
+        )
+        _, paragraph_height = instruction_paragraph.wrap(
+            instruction_width,
+            instruction_height,
+        )
+        if paragraph_height <= instruction_height:
+            break
+        instruction_font_size -= 0.5
 
     def draw_grid(canv: Canvas) -> None:
 
@@ -366,15 +369,14 @@ def export_single_puzzle_pdf(
             fill=1,
         )
 
-        instruction_flowable.wrapOn(
-            canv,
-            PAGE_W - MARGIN_LEFT - MARGIN_RIGHT - 2 * INSTRUCTION_TEXT_X_OFFSET,
-            INSTRUCTION_BOX_HEIGHT - 2 * mm,
+        _, paragraph_height = instruction_paragraph.wrap(
+            instruction_width,
+            instruction_height,
         )
-        instruction_flowable.drawOn(
+        instruction_paragraph.drawOn(
             canv,
             MARGIN_LEFT + INSTRUCTION_TEXT_X_OFFSET,
-            instruction_box_y + 0.5 * mm,
+            instruction_box_y + INSTRUCTION_BOX_HEIGHT - 0.5 * mm - paragraph_height,
         )
 
         draw_grid(canv)
