@@ -117,7 +117,6 @@ COLOR_SECTION = colors.HexColor("#1f4e79")
 COLOR_RULE = colors.HexColor("#d0d7de")
 COLOR_INSTRUCTION_BG = colors.HexColor("#eef4fb")
 COLOR_INSTRUCTION_BORDER = colors.HexColor("#b7cde6")
-COLOR_BLACK_CELL = colors.gray
 COLOR_WHITE_CELL = colors.white
 
 
@@ -128,6 +127,7 @@ def _theme_colors(theme_color):
             COLOR_RULE,
             COLOR_INSTRUCTION_BG,
             COLOR_INSTRUCTION_BORDER,
+            colors.HexColor("#6f879c"),
         )
 
     red, green, blue = (component / 255 for component in theme_color)
@@ -140,11 +140,19 @@ def _theme_colors(theme_color):
             blue + (1 - blue) * amount,
         )
 
+    def blend_with_black(amount):
+        return colors.Color(
+            red * (1 - amount),
+            green * (1 - amount),
+            blue * (1 - amount),
+        )
+
     return (
         section,
         blend_with_white(0.82),
         blend_with_white(0.94),
         blend_with_white(0.68),
+        blend_with_black(0.42),
     )
 
 
@@ -170,9 +178,13 @@ def export_single_puzzle_pdf(
     theme_color=DEFAULT_THEME_COLOR,
 ) -> None:
 
-    section_color, rule_color, instruction_bg, instruction_border = _theme_colors(
-        theme_color
-    )
+    (
+        section_color,
+        rule_color,
+        instruction_bg,
+        instruction_border,
+        black_cell_color,
+    ) = _theme_colors(theme_color)
 
     ppm = PPM(puzzle)
     grid_rows, grid_cols = puzzle.grid.shape
@@ -235,7 +247,7 @@ def export_single_puzzle_pdf(
 
                 if cell == EMPTY_STR:
 
-                    canv.setFillColor(COLOR_BLACK_CELL)
+                    canv.setFillColor(black_cell_color)
                     canv.rect(
                         x=x,
                         y=y,
