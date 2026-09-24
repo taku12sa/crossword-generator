@@ -245,6 +245,7 @@ def export_single_puzzle_pdf(
             )
         ],
         mode="shrink",
+        vAlign="TOP",
     )
 
     def draw_grid(canv: Canvas) -> None:
