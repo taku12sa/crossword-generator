@@ -1,3 +1,4 @@
+import html
 from typing import IO, Union
 
 from reportlab.lib import colors
@@ -7,6 +8,7 @@ from reportlab.lib.units import mm
 from reportlab.platypus import (
     BaseDocTemplate,
     Frame,
+    KeepInFrame,
     PageTemplate,
     Paragraph,
     Spacer,
@@ -58,11 +60,10 @@ META_LINE_Y_OFFSET = 1
 # ===== Instruction box =====
 INSTRUCTION_FONT = "Helvetica"
 INSTRUCTION_FONT_SIZE = 9
-INSTRUCTION_TOP_OFFSET = 47 * mm
-INSTRUCTION_BOX_HEIGHT = 8 * mm
+INSTRUCTION_BOX_TOP = 39 * mm
+INSTRUCTION_BOX_HEIGHT = 12 * mm
 INSTRUCTION_BOX_RADIUS = 2.5 * mm
 INSTRUCTION_TEXT_X_OFFSET = 3 * mm
-INSTRUCTION_TEXT_Y_OFFSET = 2.7 * mm
 
 
 # ===== Clue header =====
@@ -185,7 +186,7 @@ def export_single_puzzle_pdf(
     grid_x = (PAGE_W - grid_cols * CELL_SIZE) / 2
     grid_y = PAGE_H - GRID_TOP_OFFSET - grid_rows * CELL_SIZE
     meta_y = PAGE_H - META_TOP_OFFSET
-    instruction_box_y = PAGE_H - INSTRUCTION_TOP_OFFSET
+    instruction_box_y = PAGE_H - INSTRUCTION_BOX_TOP - INSTRUCTION_BOX_HEIGHT
     first_frame_top = grid_y - GRID_TO_CLUES_GAP
 
     clue_column_width = (
@@ -225,6 +226,24 @@ def export_single_puzzle_pdf(
             spaceBefore=CLUE_SECTION_SPACE_BEFORE,
             spaceAfter=CLUE_SECTION_SPACE_AFTER,
         )
+    )
+
+    instruction_flowable = KeepInFrame(
+        maxWidth=PAGE_W - MARGIN_LEFT - MARGIN_RIGHT - 2 * INSTRUCTION_TEXT_X_OFFSET,
+        maxHeight=INSTRUCTION_BOX_HEIGHT - 2 * mm,
+        content=[
+            Paragraph(
+                html.escape(instruction),
+                ParagraphStyle(
+                    name="Instruction",
+                    fontName=INSTRUCTION_FONT,
+                    fontSize=INSTRUCTION_FONT_SIZE,
+                    leading=10,
+                    textColor=COLOR_TEXT,
+                ),
+            )
+        ],
+        mode="shrink",
     )
 
     def draw_grid(canv: Canvas) -> None:
@@ -343,13 +362,15 @@ def export_single_puzzle_pdf(
             fill=1,
         )
 
-        canv.setFillColor(COLOR_TEXT)
-        canv.setFont(psfontname=INSTRUCTION_FONT, size=INSTRUCTION_FONT_SIZE)
-
-        canv.drawString(
-            x=MARGIN_LEFT + INSTRUCTION_TEXT_X_OFFSET,
-            y=instruction_box_y + INSTRUCTION_TEXT_Y_OFFSET,
-            text=instruction,
+        instruction_flowable.wrapOn(
+            canv,
+            PAGE_W - MARGIN_LEFT - MARGIN_RIGHT - 2 * INSTRUCTION_TEXT_X_OFFSET,
+            INSTRUCTION_BOX_HEIGHT - 2 * mm,
+        )
+        instruction_flowable.drawOn(
+            canv,
+            MARGIN_LEFT + INSTRUCTION_TEXT_X_OFFSET,
+            instruction_box_y + mm,
         )
 
         draw_grid(canv)
