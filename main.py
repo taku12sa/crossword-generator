@@ -10,6 +10,7 @@ def pdf_writer(
 		n_variants, 
 		pdf_title, 
 		pdf_instruction, 
+		delimiter = ",",
 		rendering_message = "PDF rendering...", 
 		print_interval = 100, 
 		random_seed = 0
@@ -22,6 +23,7 @@ def pdf_writer(
 				stop_picking_at = n_variants,
 				random_seed = random_seed,
 				print_interval = print_interval,
+				delimiter = delimiter,
 			)
 		):
 		buffer = BytesIO()
@@ -41,4 +43,4 @@ def pdf_writer(
 				height = reader.pages[0].mediabox.height,
 			)
 		print(f"[{idx}] {puzzle}\n{rendering_message}")
-	return writer
+	return write

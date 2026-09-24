@@ -1,6 +1,6 @@
 # Crossword Generator
 
-A tool for teachers to generate printable crossword worksheet PDFs from a CSV file of words and definitions.
+A tool for teachers to generate printable crossword worksheet PDFs from a TSV or CSV file of words and definitions.
 
 ## Why this tool?
 
@@ -18,24 +18,26 @@ Try it online at https://crossword-generator-n55sxjze3pohsrt5yy2olp.streamlit.ap
 
 ## How to use
 
-1. Download the CSV template: [sample.csv](sample.csv)
+1. Download the TSV template: [sample.tsv](sample.tsv)
 2. Open it in Excel (or similar)
 3. Fill in words and definitions
-4. Upload the CSV file to the app
+4. Upload the TSV file to the app (CSV files are also supported)
 5. Set parameters if needed
 6. Click "Generate"
 7. Download the PDF
 
-## CSV format
+## TSV format
 
-Each row:
-
-word,definition
+Each row contains a word and its definition, separated by a tab. TSV is recommended because definitions can contain commas without additional quoting.
 
 Example:
 
-dot, An extension is the part of a filename after this.<br>
-pptx, The file extension for a MS PowerPoint file.
+word\tdefinition
+
+dot\tAn extension is the part of a filename after this.<br>
+pptx\tThe file extension for a MS PowerPoint file.
+
+CSV files are also supported. In CSV files, separate the word and definition with a comma and quote fields when needed.
 
 ## Notes
 
@@ -52,4 +54,4 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-The application entry point is `app.py`, which loads the CSV input, generates crossword variants, and writes the result as a PDF.
+The application entry point is `app.py`, which loads TSV or CSV input, generates crossword variants, and writes the result as a PDF.
