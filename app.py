@@ -39,15 +39,6 @@ theme_color_hex = st.color_picker(
     help="Click the color swatch to adjust the selected theme color.",
 )
 uploaded_file = st.file_uploader("Upload CSV or TSV", type=["csv", "tsv"])
-with st.expander("Debug info"):
-    st.write("App file", __file__)
-    st.write("Main file", main.__file__)
-    st.write("Renderer file", renderer.__file__)
-    st.write("Instruction layout", renderer.INSTRUCTION_LAYOUT_VERSION)
-    st.write("pdf_writer signature", str(inspect.signature(main.pdf_writer)))
-    if uploaded_file:
-        st.write("Uploaded file", uploaded_file.name)
-        st.write("Uploaded bytes", uploaded_file.size)
 buffer = None
 
 if uploaded_file and st.button("Generate"):
@@ -83,3 +74,13 @@ if buffer:
         file_name = "crossword.pdf",
         mime = "application/pdf",
     )
+
+with st.expander("Debug info"):
+    st.write("App file", __file__)
+    st.write("Main file", main.__file__)
+    st.write("Renderer file", renderer.__file__)
+    st.write("Instruction layout", renderer.INSTRUCTION_LAYOUT_VERSION)
+    st.write("pdf_writer signature", str(inspect.signature(main.pdf_writer)))
+    if uploaded_file:
+        st.write("Uploaded file", uploaded_file.name)
+        st.write("Uploaded bytes", uploaded_file.size)
