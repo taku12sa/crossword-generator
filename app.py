@@ -30,19 +30,10 @@ theme_color_hex = st.radio(
     format_func=THEME_COLORS.get,
     horizontal=True,
 )
-with st.expander("Advanced: Custom color"):
-    use_custom_color = st.checkbox("Use custom color")
-    if use_custom_color:
-        theme_color_hex = st.color_picker("Custom color", value=theme_color_hex)
-
-st.markdown(
-    f'<div style="display:flex;align-items:center;gap:0.5rem;">'
-    f'<span style="display:inline-block;width:1.25rem;height:1.25rem;'
-    f'border-radius:0.25rem;background:{theme_color_hex};'
-    f'border:1px solid #888;"></span>'
-    f'<span>Selected theme color: {THEME_COLORS.get(theme_color_hex, theme_color_hex)}</span>'
-    f'</div>',
-    unsafe_allow_html=True,
+theme_color_hex = st.color_picker(
+    "Selected theme color",
+    value=theme_color_hex,
+    help="Click the color swatch to adjust the selected theme color.",
 )
 uploaded_file = st.file_uploader("Upload CSV or TSV", type=["csv", "tsv"])
 buffer = None
